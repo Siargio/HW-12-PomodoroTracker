@@ -5,4 +5,10 @@
 //  Created by Sergio on 25.08.22.
 //
 
-import Foundation
+import UIKit
+
+extension Int {
+    var degreesToRadians: CGFloat {
+        return CGFloat(self) * .pi / 180
+    }
+}
