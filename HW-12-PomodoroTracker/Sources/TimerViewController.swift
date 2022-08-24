@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class ViewController: UIViewController {
+final class ViewController: UIViewController, CAAnimationDelegate {
 
     private lazy var timer = Timer()
     private lazy var isStarted = false
@@ -62,7 +62,7 @@ class ViewController: UIViewController {
         setupHierarchy()
         setupLayout()
         setupView()
-        //drawBackLayer()
+        drawBackLayer()
     }
 
     // MARK: - Setup
@@ -92,9 +92,109 @@ class ViewController: UIViewController {
         }
     }
 
+    // MARK: - Animation
+
+    func drawBackLayer() {
+        backProgressLayer.path = UIBezierPath(arcCenter:
+                                              CGPoint(x: view.frame.midX, y: view.frame.midY),
+                                              radius: 110,
+                                              startAngle: -90.degreesToRadians,
+                                              endAngle: 270.degreesToRadians,
+                                              clockwise: true).cgPath
+        backProgressLayer.strokeColor = UIColor(named: "ColorButtonTexField")?.cgColor
+        backProgressLayer.fillColor = UIColor.clear.cgColor
+        backProgressLayer.lineWidth = 5
+        view.layer.addSublayer(backProgressLayer)
+    }
+
+    func drawForLayer() {
+        foreProgressLayer.path = UIBezierPath(arcCenter:
+                                              CGPoint(x: view.frame.midX, y: view.frame.midY),
+                                              radius: 110,
+                                              startAngle: -90.degreesToRadians,
+                                              endAngle: 270.degreesToRadians,
+                                              clockwise: true).cgPath
+        foreProgressLayer.strokeColor = UIColor.black.cgColor
+        foreProgressLayer.fillColor = UIColor.clear.cgColor
+        foreProgressLayer.lineWidth = 7
+        view.layer.addSublayer(foreProgressLayer)
+    }
+
+    func startResumeAnimation() {
+        if !isAnimationStarted {
+            startAnimation()
+        } else {
+            resumeAnimation()
+        }
+    }
+
+    func startAnimation() {
+        resetAnimation()
+        foreProgressLayer.strokeEnd = 0.0
+        animation.keyPath = "strokeEnd"
+        animation.fromValue = 0
+        animation.toValue = 1
+        animation.duration = CFTimeInterval(time)
+        animation.delegate = self
+        animation.isRemovedOnCompletion = false
+        animation.isAdditive = true
+        animation.fillMode = CAMediaTimingFillMode.forwards
+        foreProgressLayer.add(animation, forKey: "strokeEnd")
+        isAnimationStarted = true
+    }
+
+    func resetAnimation() {
+        foreProgressLayer.speed = 1.0
+        foreProgressLayer.timeOffset = 0.0
+        foreProgressLayer.beginTime = 0.0
+        foreProgressLayer.strokeEnd = 0.0
+        isAnimationStarted = false
+    }
+
+    func pauseAnimation() {
+        let pausedTime = foreProgressLayer.convertTime(CACurrentMediaTime(), from: nil)
+        foreProgressLayer.speed = 0.0
+        foreProgressLayer.timeOffset = pausedTime
+    }
+
+    func resumeAnimation() {
+        let pausedTime = foreProgressLayer.timeOffset
+        foreProgressLayer.speed = 1.0
+        foreProgressLayer.timeOffset = 0.0
+        foreProgressLayer.beginTime = 0.0
+
+        let timeSiencePaused = foreProgressLayer.convertTime(CACurrentMediaTime(), from: nil) - pausedTime
+        foreProgressLayer.beginTime = timeSiencePaused
+    }
+
+    func stopAnimation() {
+        foreProgressLayer.speed = 1.0
+        foreProgressLayer.timeOffset = 0.0
+        foreProgressLayer.beginTime = 0.0
+        foreProgressLayer.strokeEnd = 0.0
+        foreProgressLayer.removeAllAnimations()
+        isAnimationStarted = false
+    }
+
+    @objc func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
+        stopAnimation()
+    }
+
     // MARK: - Action
 
     @objc private func playPauseButtonAction() {
+        if !isStarted {
+            drawForLayer()
+            startResumeAnimation()
+            startTimer()
+            isStarted = true
+            playPauseButton.setImage(UIImage(systemName: "pause.fill"), for: .normal)
+        } else {
+            timer.invalidate()
+            isStarted = false
+            pauseAnimation()
+            playPauseButton.setImage(UIImage(systemName: "play.fill"), for: .normal)
+        }
     }
 
     func startTimer() {
