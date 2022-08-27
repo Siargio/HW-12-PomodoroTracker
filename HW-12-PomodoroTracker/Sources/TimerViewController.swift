@@ -94,7 +94,7 @@ final class ViewController: UIViewController, CAAnimationDelegate {
 
     // MARK: - Animation
 
-    func drawBackLayer() {
+    private func drawBackLayer() {
         backProgressLayer.path = UIBezierPath(arcCenter:
                                               CGPoint(x: view.frame.midX, y: view.frame.midY),
                                               radius: 110,
@@ -107,7 +107,7 @@ final class ViewController: UIViewController, CAAnimationDelegate {
         view.layer.addSublayer(backProgressLayer)
     }
 
-    func drawForLayer() {
+    private func drawForLayer() {
         foreProgressLayer.path = UIBezierPath(arcCenter:
                                               CGPoint(x: view.frame.midX, y: view.frame.midY),
                                               radius: 110,
@@ -120,7 +120,7 @@ final class ViewController: UIViewController, CAAnimationDelegate {
         view.layer.addSublayer(foreProgressLayer)
     }
 
-    func startResumeAnimation() {
+    private func startResumeAnimation() {
         if !isAnimationStarted {
             startAnimation()
         } else {
@@ -128,7 +128,7 @@ final class ViewController: UIViewController, CAAnimationDelegate {
         }
     }
 
-    func startAnimation() {
+    private func startAnimation() {
         resetAnimation()
         foreProgressLayer.strokeEnd = 0.0
         animation.keyPath = "strokeEnd"
@@ -143,7 +143,7 @@ final class ViewController: UIViewController, CAAnimationDelegate {
         isAnimationStarted = true
     }
 
-    func resetAnimation() {
+    private func resetAnimation() {
         foreProgressLayer.speed = 1.0
         foreProgressLayer.timeOffset = 0.0
         foreProgressLayer.beginTime = 0.0
@@ -151,13 +151,13 @@ final class ViewController: UIViewController, CAAnimationDelegate {
         isAnimationStarted = false
     }
 
-    func pauseAnimation() {
+    private func pauseAnimation() {
         let pausedTime = foreProgressLayer.convertTime(CACurrentMediaTime(), from: nil)
         foreProgressLayer.speed = 0.0
         foreProgressLayer.timeOffset = pausedTime
     }
 
-    func resumeAnimation() {
+    private func resumeAnimation() {
         let pausedTime = foreProgressLayer.timeOffset
         foreProgressLayer.speed = 1.0
         foreProgressLayer.timeOffset = 0.0
@@ -167,7 +167,7 @@ final class ViewController: UIViewController, CAAnimationDelegate {
         foreProgressLayer.beginTime = timeSiencePaused
     }
 
-    func stopAnimation() {
+    private func stopAnimation() {
         foreProgressLayer.speed = 1.0
         foreProgressLayer.timeOffset = 0.0
         foreProgressLayer.beginTime = 0.0

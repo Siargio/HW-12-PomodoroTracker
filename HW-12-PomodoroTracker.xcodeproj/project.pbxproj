@@ -12,7 +12,7 @@
 		EC32177128B6E0380075D3EC /* TimerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC32177028B6E0380075D3EC /* TimerViewController.swift */; };
 		EC32177628B6E0390075D3EC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EC32177528B6E0390075D3EC /* Assets.xcassets */; };
 		EC32177928B6E0390075D3EC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EC32177728B6E0390075D3EC /* LaunchScreen.storyboard */; };
-		EC32178728B6E3620075D3EC /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC32178628B6E3620075D3EC /* Extensions.swift */; };
+		EC32178728B6E3620075D3EC /* ExtensionsInt.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC32178628B6E3620075D3EC /* ExtensionsInt.swift */; };
 		EC32178A28B6E3A60075D3EC /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = EC32178928B6E3A60075D3EC /* SnapKit */; };
 /* End PBXBuildFile section */
 
@@ -24,7 +24,7 @@
 		EC32177528B6E0390075D3EC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		EC32177828B6E0390075D3EC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		EC32177A28B6E0390075D3EC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		EC32178628B6E3620075D3EC /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		EC32178628B6E3620075D3EC /* ExtensionsInt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionsInt.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,7 +95,7 @@
 		EC32178328B6E2B30075D3EC /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				EC32178628B6E3620075D3EC /* Extensions.swift */,
+				EC32178628B6E3620075D3EC /* ExtensionsInt.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -196,7 +196,7 @@
 				EC32177128B6E0380075D3EC /* TimerViewController.swift in Sources */,
 				EC32176D28B6E0380075D3EC /* AppDelegate.swift in Sources */,
 				EC32176F28B6E0380075D3EC /* SceneDelegate.swift in Sources */,
-				EC32178728B6E3620075D3EC /* Extensions.swift in Sources */,
+				EC32178728B6E3620075D3EC /* ExtensionsInt.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
